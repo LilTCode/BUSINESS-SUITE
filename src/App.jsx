@@ -32,7 +32,7 @@ function App() {
   return (
     <Router>
       <BusinessProvider>
-        <div className="min-h-screen bg-black text-white overflow-hidden flex">
+        <div className="min-h-screen bg-black text-white flex">
           <AnimatedBackground />
 
           {/* Sidebar */}
@@ -78,7 +78,10 @@ function App() {
           </button>
 
           {/* Main content */}
-          <div className="flex-1 md:ml-64 p-4">
+          <div
+            className="flex-1 md:ml-64 p-4 sm:p-6"
+            style={{ overflow: 'auto', minHeight: '100vh' }}
+          >
             <Routes>
               <Route path="/inventory" element={<InventorySystem />} />
               <Route path="/customers" element={<CustomerTracking />} />
