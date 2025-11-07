@@ -76,15 +76,15 @@ const InventorySystem = () => {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex items-center mb-4 justify-between">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-4 justify-between gap-4">
         <div className="flex items-center">
-          <FaBox className="text-3xl text-blue-500 mr-3" />
-          <h1 className="text-3xl font-bold gradient-text">
+          <FaBox className="text-2xl sm:text-3xl text-blue-500 mr-3" />
+          <h1 className="text-2xl sm:text-3xl font-bold gradient-text">
             T-Inventory System
           </h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           <select
             value={currentBusinessId}
             onChange={(e) => setCurrentBusinessId(Number(e.target.value))}
@@ -171,8 +171,8 @@ const InventorySystem = () => {
       )}
 
       {/* Search and Add Item Controls */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <div className="relative flex-1">
+      <div className="flex flex-col gap-6 mb-8">
+        <div className="relative">
           <FaSearch className="absolute left-3 top-3 text-gray-400" />
           <input
             type="text"
@@ -183,129 +183,187 @@ const InventorySystem = () => {
           />
         </div>
 
-        <form
-          onSubmit={handleAddItem}
-          className="flex flex-col md:flex-row gap-2"
-        >
-          <input
-            type="text"
-            placeholder="Item name"
-            className="glass px-4 py-2 rounded-lg"
-            value={newItem.name}
-            onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-          />
-          <input
-            type="number"
-            placeholder="Quantity"
-            className="glass px-4 py-2 rounded-lg"
-            value={newItem.quantity}
-            onChange={(e) =>
-              setNewItem({ ...newItem, quantity: e.target.value })
-            }
-          />
-          <input
-            type="number"
-            placeholder="Price"
-            className="glass px-4 py-2 rounded-lg"
-            value={newItem.price}
-            onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
-          />
-          <input
-            type="text"
-            placeholder="Category"
-            className="glass px-4 py-2 rounded-lg"
-            value={newItem.category}
-            onChange={(e) =>
-              setNewItem({ ...newItem, category: e.target.value })
-            }
-          />
-          <button
-            type="submit"
-            className="flex items-center justify-center gap-2 glass px-6 py-2 rounded-lg hover:scale-105 transition-transform"
-          >
-            <FaPlus /> Add Item
-          </button>
+        <form onSubmit={handleAddItem} className="glass p-4 rounded-lg">
+          <h3 className="text-lg font-semibold mb-4">Add New Item</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <input
+              type="text"
+              placeholder="Item name"
+              className="glass px-4 py-2 rounded-lg w-full"
+              value={newItem.name}
+              onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+            />
+            <input
+              type="number"
+              placeholder="Quantity"
+              className="glass px-4 py-2 rounded-lg w-full"
+              value={newItem.quantity}
+              onChange={(e) =>
+                setNewItem({ ...newItem, quantity: e.target.value })
+              }
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              className="glass px-4 py-2 rounded-lg w-full"
+              value={newItem.price}
+              onChange={(e) =>
+                setNewItem({ ...newItem, price: e.target.value })
+              }
+            />
+            <input
+              type="text"
+              placeholder="Category"
+              className="glass px-4 py-2 rounded-lg w-full"
+              value={newItem.category}
+              onChange={(e) =>
+                setNewItem({ ...newItem, category: e.target.value })
+              }
+            />
+          </div>
+          <div className="mt-4 flex justify-end">
+            <button
+              type="submit"
+              className="flex items-center justify-center gap-2 glass px-6 py-2 rounded-lg hover:scale-105 transition-transform"
+            >
+              <FaPlus /> Add Item
+            </button>
+          </div>
         </form>
       </div>
 
       {/* Record Sale */}
       <div className="glass p-4 rounded-lg mb-8">
-        <h3 className="text-lg font-semibold mb-2">Record a Sale</h3>
-        <form
-          onSubmit={handleRecordSale}
-          className="flex flex-col md:flex-row gap-2 items-center"
-        >
-          <select
-            value={saleProductId || ''}
-            onChange={(e) => setSaleProductId(e.target.value)}
-            className="glass px-4 py-2 rounded-lg"
-          >
-            <option value="">Select product</option>
-            {productsForCurrent.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.name} — {p.quantity} in stock
-              </option>
-            ))}
-          </select>
-          <input
-            type="number"
-            min="1"
-            value={saleQuantity}
-            onChange={(e) => setSaleQuantity(e.target.value)}
-            className="glass px-4 py-2 rounded-lg"
-          />
-          <input
-            type="text"
-            placeholder="Customer name (optional)"
-            value={saleCustomerName}
-            onChange={(e) => setSaleCustomerName(e.target.value)}
-            className="glass px-4 py-2 rounded-lg"
-          />
-          <input
-            type="email"
-            placeholder="Customer email (optional)"
-            value={saleCustomerEmail}
-            onChange={(e) => setSaleCustomerEmail(e.target.value)}
-            className="glass px-4 py-2 rounded-lg"
-          />
-          <button type="submit" className="glass px-6 py-2 rounded-lg">
-            Record Sale
-          </button>
+        <h3 className="text-lg font-semibold mb-4">Record a Sale</h3>
+        <form onSubmit={handleRecordSale}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <select
+              value={saleProductId || ''}
+              onChange={(e) => setSaleProductId(e.target.value)}
+              className="glass px-4 py-2 rounded-lg w-full"
+            >
+              <option value="">Select product</option>
+              {productsForCurrent.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name} — {p.quantity} in stock
+                </option>
+              ))}
+            </select>
+            <input
+              type="number"
+              min="1"
+              value={saleQuantity}
+              onChange={(e) => setSaleQuantity(e.target.value)}
+              className="glass px-4 py-2 rounded-lg w-full"
+              placeholder="Quantity"
+            />
+            <input
+              type="text"
+              placeholder="Customer name (optional)"
+              value={saleCustomerName}
+              onChange={(e) => setSaleCustomerName(e.target.value)}
+              className="glass px-4 py-2 rounded-lg w-full"
+            />
+            <input
+              type="email"
+              placeholder="Customer email (optional)"
+              value={saleCustomerEmail}
+              onChange={(e) => setSaleCustomerEmail(e.target.value)}
+              className="glass px-4 py-2 rounded-lg w-full"
+            />
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="glass px-6 py-2 rounded-lg hover:scale-105 transition-transform"
+            >
+              Record Sale
+            </button>
+          </div>
         </form>
       </div>
 
       {/* Inventory Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="glass">
-              <th className="px-4 py-3 text-left">Name</th>
-              <th className="px-4 py-3 text-left">Category</th>
-              <th className="px-4 py-3 text-left">Quantity</th>
-              <th className="px-4 py-3 text-left">Price</th>
-              <th className="px-4 py-3 text-left">Total Sold</th>
-              <th className="px-4 py-3 text-left">Total Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredItems.map((item) => (
-              <tr key={item.id} className="glass border-t border-gray-700">
-                <td className="px-4 py-3">{item.name}</td>
-                <td className="px-4 py-3">{item.category}</td>
-                <td
-                  className={`px-4 py-3 ${item.quantity < 20 ? 'text-yellow-500' : ''}`}
-                >
-                  {item.quantity}
-                </td>
-                <td className="px-4 py-3">${item.price.toFixed(2)}</td>
-                <td className="px-4 py-3">{item.totalSold || 0}</td>
-                <td className="px-4 py-3">
-                  ${(item.quantity * item.price).toFixed(2)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="glass rounded-lg p-4">
+        <div className="overflow-x-auto -mx-4">
+          <div className="inline-block min-w-full align-middle">
+            <div className="overflow-hidden">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="glass">
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left text-sm font-semibold"
+                    >
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left text-sm font-semibold hidden sm:table-cell"
+                    >
+                      Category
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left text-sm font-semibold"
+                    >
+                      Quantity
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left text-sm font-semibold"
+                    >
+                      Price
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left text-sm font-semibold hidden lg:table-cell"
+                    >
+                      Total Sold
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-left text-sm font-semibold"
+                    >
+                      Total Value
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-700">
+                  {filteredItems.map((item) => (
+                    <tr key={item.id} className="glass">
+                      <td className="whitespace-nowrap px-4 py-3.5">
+                        <div className="flex flex-col sm:flex-row sm:items-center">
+                          <div className="font-medium">{item.name}</div>
+                          <div className="text-gray-400 text-sm sm:hidden">
+                            {item.category}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3.5 hidden sm:table-cell">
+                        {item.category}
+                      </td>
+                      <td
+                        className={`whitespace-nowrap px-4 py-3.5 ${item.quantity < 20 ? 'text-yellow-500' : ''}`}
+                      >
+                        {item.quantity}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3.5">
+                        ${item.price.toFixed(2)}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3.5 hidden lg:table-cell">
+                        {item.totalSold || 0}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3.5 font-medium">
+                        ${(item.quantity * item.price).toFixed(2)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
